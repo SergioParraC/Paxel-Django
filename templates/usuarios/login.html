@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block head_contenido %}
+<title>Paxel | Login</title>
+{% endblock %}
+{% block container %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 offset-md-4 mt-4">
+      <h2 class="display-5 text-center">Bienvenido a Paxel</h2>
+      <p class="text-center">Los foros para los Gays, para los Gamers </p>
+      {% if error %}
+        <p class="alert alert-danger">{{ error }}</p>
+      {% endif %}
+      <form method="POST" actions="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Nick o correo electronico</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+          <div id="emailHelp" class="form-text">Nick: Alejandro1234 - Correo: ejemplo@ejemplo.com </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Recuerdame</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <p>No estas registrado? <a href="#">Registrate aqui</a></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
