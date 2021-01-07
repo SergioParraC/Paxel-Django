@@ -3,8 +3,9 @@ from django.contrib import admin
 #Modelos
 from django.contrib.auth.models import User
 from usuarios.models import Perfil
+from foro.models import foros_descrp
 
-# Register your models here.
+#Admin de usuarios
 @admin.register(Perfil)
 class PerfilAdmin(admin.ModelAdmin):
     list_display = ('nick','sentecia','pais','nacim')
@@ -33,5 +34,32 @@ class PerfilInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (PerfilInline,)
     
+#Admin de Foros
+class ForosAdmin(admin.ModelAdmin):
+    list_display = ('titulo','codigo_foro','solicitud_moderacion','resumen')
+    fieldsets = (
+        ('Basico', {
+            "fields": (
+                ('titulo','nick','videojuego'),
+                ('codigo_foro','creacion','consola'),
+            ),
+        }),
+        ('Moderacion de contenido', {
+            'fields': (
+                ('solicitud_moderacion'),
+            ),
+        }),
+        ('contenido',{
+            'fields': (
+                ('resumen'),
+                ('imagen'),
+                ('contenido'),
+            ),
+        })
+    )
+    
+    readonly_fields = ('creacion','titulo','videojuego','resumen','contenido','consola','codigo_foro','imagen')
+admin.site.register(foros_descrp, ForosAdmin)
 admin.site.unregister(Perfil)
 admin.site.register(Perfil, PerfilAdmin)
+

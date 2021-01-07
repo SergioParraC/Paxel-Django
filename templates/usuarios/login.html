@@ -11,7 +11,7 @@
       {% if error %}
         <p class="alert alert-danger">{{ error }}</p>
       {% endif %}
-      <form method="POST" actions="{% url 'login' %}">
+      <form method="POST" actions="{% url 'usuarios:login' %}">
         {% csrf_token %}
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Nick o correo electronico</label>

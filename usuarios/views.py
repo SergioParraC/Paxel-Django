@@ -14,3 +14,7 @@ def login_view(request):
         else:
             return render(request, 'usuarios/login.html',{'error':'Usuario o contraseña erroneos'})
     return render(request,'usuarios/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
