@@ -11,6 +11,17 @@ urlpatterns = [
     path(
         route = 'logout/',
         view = views.logout_view,
-        name = 'logout'),
+        name = 'logout'
+    ),
+    path(
+        route = 'signup/',
+        view = views.crear_usuario,
+        name = 'crear_usuario',
+    ),
+    path(
+        route = 'update/',
+        view = views.act_datos_view,
+        name = 'act_datos',
+    ),
 ]
 

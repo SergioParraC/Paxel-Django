@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block head_contenido %}
+<title>Paxel | Actualizar datos</title>
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 offset-md-4 text-center">
+                <h1 class="display-2">Actualiza tus datos personales</h1>
+            </div>
+        </div>
+    </div>
+
+    {# Nick #}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8 offset-md-2 text-center">
+                    <h1 class="display-4">Bienvenido @{{ user.username }}</h1>
+                </div>
+            </div>
+        </div>
+
+    {# Formulario #}
+    
+    <form action="{% url 'usuarios:act_datos' %}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row mb-3">
+                {# Email #}
+                <div class="col-12 col-md-5 offset-md-1">
+                    <div class="input-group">
+                        <span class="input-group-text">Correo</span>
+                        <input 
+                            class="form-control" 
+                            type="text" 
+                            name="email"
+                            placeholder="Email"
+                            value="{% if form.errors %}{{ form.email.value }}{% else %}{{ user.email }}{% endif %}"
+                        >
+                    </div>
+                </div>
+                {# Genero #}
+                <div class="col-12 col-md-5">
+                    <div class="input-group">
+                        <label class="input-group-text" for="generochoose">Genero</label>
+                        <select class="form-select" name="genero" id="generochoose">
+                            <option selected>{% if perfil.genero.value %}{{ form.genero.value }}{% else %}Seleccione una opción{% endif %}</option>
+                            <option value="hombre">Hombre</option>
+                            <option value="mujer">Mujer</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                {# Nombre completo #}
+                <div class="col-12 col-md-10 offset-md-1">
+                    
+                    <div class="input-group">
+                        <span class="input-group-text">Nombre y apellido</span>
+                        <input 
+                            class="form-control" 
+                            type="text" 
+                            name="first_name"
+                            placeholder="Primer nombre"
+                            value="{% if form.errors %}{{ form.first_name.value }}{% else %}{{ user.first_name }}{% endif %}"
+                        >
+                        <input 
+                            class="form-control" 
+                            type="text" 
+                            name="last_name"
+                            placeholder="Segundo nombre"
+                            value="{% if form.errors %}{{ form.last_name.value }}{% else %}{{ user.last_name }}{% endif %}"
+                        >
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row mb-3">
+                {# Numero de telefono #}
+                <div class="col-12 col-md-4 offset-md-1">
+                    <div class="input-group">
+                        <span class="input-group-text">Numero de telefono</span>
+                        <input 
+                            class="form-control" 
+                            type="text" 
+                            name="num_celular"
+                            placeholder="Numero de telefono"
+                            value="{% if form.errors %}{{ form.num_celular.value }}{% else %}{{ perfil.num_celular }}{% endif %}"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                    {# Biografia #}
+                    <div class="col-12 col-md-10 offset-md-1 mt-3">
+                        <h4>Biografia</h4>
+                        <textarea 
+                            class="form-control {% if form.biografia.errors %}is-invalid{% endif %}"
+                            name="biografia" 
+                        >
+                        {% if form.errors %}{{ form.biografia.value }}{% else %}{{ perfil.biografia }}{% endif %}
+                        </textarea>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-9 offset-md-1">
+                    <h1 class="display-4">Datos </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-grid gap-2 col-12 col-md-3 mx-auto">
+                    <button class="btn btn-primary btn-block mt-5" type="submit">Actualizar</button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-9 offset-md-1">
+                        <h1>Cambiar contraseña </h1>
+                        <button class="btn btn-primary btn-block mt-5">Click aqui para cambiar la contraseña</button>
+                    </div>
+                </div>
+            </div>
+    </form>
+{% endblock %}

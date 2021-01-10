@@ -1,0 +1,102 @@
+//Usar codigo en https://dbdiagram.io/d
+
+Table users {
+  id int [pk, increment] // auto-increment
+  username varchar [unique]
+  fist_name varchar [not null]
+  last_name varchar [not null]
+  password varchar [not null]
+  last_login datetime
+  is_superuser boolean
+  email email [not null]
+  is_staff boolean
+  date_joined datetime
+}
+
+Table perfil {
+  nick varchar [unique]
+  num_celular int [not null]
+  pais varchar [not null]
+  biografia text
+  genero varchar
+  creado datetime [default: `now()`]
+  nacim date [not null]
+  llamados_atencion int
+ }
+
+// Creating references
+// You can also define relaionship separately
+// > many-to-one; < one-to-many; - one-to-one
+Ref: perfil.nick - users.username
+
+Table foros_descrp {
+  id_foro int [pk, increment]
+  id_creador int [ref: > users.id]
+  id_videojuego int [ref: > videojuegos.id_videojuego]
+  fecha_creacion datetime
+  titulo varchar [not null]
+  imagen imagen 
+  resumen text [not null]
+  contenido text [not null]
+}
+
+Table comentarios{
+  id_comentario int [pk, increment]
+  id_usuario int [ref: > users.id]
+  id_foro int [ref: > foros_descrp.id_foro]
+  fecha_creado datetime 
+  fecha_editado datetime
+  contenido varchar [not null]
+  is_edit boolean
+}
+
+Table likes{
+  id_like int [pk, increment]
+  id_usuario int [ref: - users.id]
+  id_foro int [ref: > foros_descrp.id_foro]
+  id_comentario int [ref: > comentarios.id_comentario]
+}
+
+//DB videojuegos
+
+Table videojuegos{
+  id_videojuego int [pk, increment]
+  nombre varchar [not null]
+  genero varchar [not null]
+  estudio varchar [not null]
+  fecha_lanzamiento date [not null]
+  consola varchar [not null]
+  version varchar 
+}
+
+//DB de informacion de baneos
+
+Table BannComentData{
+  id_BComent int [pk, increment]
+  id_foro int [ref: > foros_descrp.id_foro]
+  id_comentario int [ref: > comentarios.id_comentario]
+  id_creador int [ref: - users.id]
+  id_report int [ref: - users.id]
+  contenido_comentario varchar
+  causa varchar
+}
+
+Table BannForoData{
+  id_BForo int [pk, increment]
+  id_foro int [ref: - foros_descrp.id_foro]
+  id_creador int [ref: - users.id]
+  id_report int [ref: - users.id]
+  titulo varchar [ref: > foros_descrp.titulo]
+  imagen imagen [ref: > foros_descrp.imagen]
+  contenido text [ref: > foros_descrp.contenido]
+  causa varchar
+}
+
+Table BannUsersData{
+  id_BUser int [pk, increment]
+  id_usuario int [ref: - users.id]
+  coment_report int 
+  foros_report int
+  tiempo_sentencia timestamp
+  fecha_i_sent datetime
+}

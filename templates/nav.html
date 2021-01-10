@@ -35,7 +35,7 @@
             {% if request.user.is_authenticated %}
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Modificar perfil</a></li>
-              <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesion</a></li>
+              <li><a class="dropdown-item" href="{% url 'usuarios:logout' %}">Cerrar sesion</a></li>
             {% endif %}
           </ul>
         </li>

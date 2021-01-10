@@ -36,12 +36,12 @@ class UserAdmin(BaseUserAdmin):
     
 #Admin de Foros
 class ForosAdmin(admin.ModelAdmin):
-    list_display = ('titulo','codigo_foro','solicitud_moderacion','resumen')
+    list_display = ('titulo','id_foro','solicitud_moderacion','resumen')
     fieldsets = (
         ('Basico', {
             "fields": (
                 ('titulo','nick','videojuego'),
-                ('codigo_foro','creacion','consola'),
+                ('codigo_foro','fecha_creacion','consola'),
             ),
         }),
         ('Moderacion de contenido', {
@@ -58,7 +58,7 @@ class ForosAdmin(admin.ModelAdmin):
         })
     )
     
-    readonly_fields = ('creacion','titulo','videojuego','resumen','contenido','consola','codigo_foro','imagen')
+    readonly_fields = ('fecha_creacion','titulo','videojuego','resumen','contenido','consola','id_foro','imagen')
 admin.site.register(foros_descrp, ForosAdmin)
 admin.site.unregister(Perfil)
 admin.site.register(Perfil, PerfilAdmin)

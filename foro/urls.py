@@ -4,7 +4,7 @@ from foro import views
 
 urlpatterns = [
     path(
-        route = 'inicio/', 
+        route = '', 
         view = views.inicio_view, 
         name = 'inicio'
     ),

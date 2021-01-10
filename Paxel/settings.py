@@ -135,3 +135,5 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/usuarios/login/'

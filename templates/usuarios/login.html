@@ -11,6 +11,9 @@
       {% if error %}
         <p class="alert alert-danger">{{ error }}</p>
       {% endif %}
+      {% if nota %}
+        <p class="alert alert.succes" role="alert">{{ nota }}</p>
+      {% endif %}
       <form method="POST" actions="{% url 'usuarios:login' %}">
         {% csrf_token %}
         <div class="mb-3">
@@ -27,7 +30,7 @@
           <label class="form-check-label" for="exampleCheck1">Recuerdame</label>
         </div>
         <button type="submit" class="btn btn-primary">Entrar</button>
-        <p>No estas registrado? <a href="#">Registrate aqui</a></p>
+        <p>No estas registrado? <a href="{% url 'usuarios:crear_usuario' %}">Registrate aqui</a></p>
       </form>
     </div>
   </div>
