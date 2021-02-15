@@ -5,14 +5,14 @@ from django.db import models
 class Perfil(models.Model):
     nick = models.OneToOneField(User, on_delete=models.CASCADE)
     creado = models.DateTimeField(auto_now_add=True)
-    nacim = models.DateField()
+    nacim = models.DateField(blank=True)
     imagen  = models.ImageField(
         upload_to='usuarios/images',
         blank=True,
         null=True
     )
-    genero = models.CharField(max_length=15)
-    num_celular = models.BigIntegerField(blank=True)
+    genero = models.CharField(max_length=15, blank = True)
+    num_celular = models.CharField(max_length=10,blank = True)
     pais = models.CharField(max_length = 50)
     biografia = models.TextField(blank=True)
     sentecia = models.TimeField(blank=True,null=True)

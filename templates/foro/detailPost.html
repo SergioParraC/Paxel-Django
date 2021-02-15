@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block head_contenido %}
+    <title>{{ foros_descrp.titulo }}</title>
+{% endblock  %}
+
+{% block container %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <h1 class="display-6">{{ foros_descrp.titulo }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <blockquote class="blockquote-footer">
+                <p>Creado por: <cite title="Source Title">{{ foros_descrp.creador }}</cite> el {{ foros_descrp.fecha_creacion }}</p>
+            </blockquote>
+            <p>Videojuego: <a href="#" class="badge bg-light text-dark">{{ foros_descrp.videojuego }}</a></p>
+            <p>{{ foros_descrp.contenido }}</p>
+            
+        </div>
+    </div>
+</div>
+{% endblock  %}

@@ -3,7 +3,7 @@ from django.contrib import admin
 #Modelos
 from django.contrib.auth.models import User
 from usuarios.models import Perfil
-from foro.models import foros_descrp
+from foro.models import foros_descrp, videojuegos
 
 #Admin de usuarios
 @admin.register(Perfil)
@@ -35,31 +35,6 @@ class UserAdmin(BaseUserAdmin):
     inlines = (PerfilInline,)
     
 #Admin de Foros
-class ForosAdmin(admin.ModelAdmin):
-    list_display = ('titulo','id_foro','solicitud_moderacion','resumen')
-    fieldsets = (
-        ('Basico', {
-            "fields": (
-                ('titulo','nick','videojuego'),
-                ('codigo_foro','fecha_creacion','consola'),
-            ),
-        }),
-        ('Moderacion de contenido', {
-            'fields': (
-                ('solicitud_moderacion'),
-            ),
-        }),
-        ('contenido',{
-            'fields': (
-                ('resumen'),
-                ('imagen'),
-                ('contenido'),
-            ),
-        })
-    )
-    
-    readonly_fields = ('fecha_creacion','titulo','videojuego','resumen','contenido','consola','id_foro','imagen')
-admin.site.register(foros_descrp, ForosAdmin)
-admin.site.unregister(Perfil)
-admin.site.register(Perfil, PerfilAdmin)
 
+admin.site.register(foros_descrp)
+admin.site.register(videojuegos)

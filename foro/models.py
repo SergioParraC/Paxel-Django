@@ -1,35 +1,42 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-class foros_descrp(models.Model):
-    nick = models.OneToOneField(User, on_delete=models.CASCADE)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    titulo = models.CharField(max_length=70)
-    #No se que base de datos utilizar para esto ni el tipo de relacion
-    videojuego = models.ForeignKey('videojuegos', on_delete=models.CASCADE)
-    resumen = models.TextField(max_length = 500)
-    contenido = models.TextField()
-    consola = models.CharField(max_length = 20)
-    id_foro = models.AutoField(unique = True,primary_key=True)
-    solicitud_moderacion = models.SmallIntegerField(null = True, blank = True)
-    imagen = models.ImageField(upload_to='foros/images', null = True, blank = True)
-
 class videojuegos(models.Model):
-    nombre = models.ManyToManyField("usuarios.Perfil")
+    id_videojuego = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
     genero = models.CharField(max_length=50)
     consola = models.CharField(max_length=50)
     estudio = models.CharField(max_length=50)
     fecha_lanzamiento = models.DateField()
     version = models.CharField(max_length=5, null=True, blank=True)
-    id_videojuego = models.AutoField(primary_key=True)
+    def __str__(self):
+        return str(self.nombre)
 
+class foros_descrp(models.Model):
+    id_foro = models.AutoField(primary_key=True)
+    creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    videojuego = models.ForeignKey(videojuegos,on_delete=models.DO_NOTHING)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    titulo = models.CharField(max_length=70)
+    imagen = models.ImageField(upload_to='foros/images', null = True, blank = True)
+    contenido = models.TextField()
+
+    def get_absolute_url(self):
+        return '/foro/%s' %(self.pk)
+    class Meta:
+        ordering = ['-fecha_creacion']
+    
 class comentarios(models.Model):
     id_comentario = models.AutoField(primary_key=True)
-    nick = models.ManyToManyField("usuarios.Perfil")
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    foro = models.ForeignKey("foro.foros_descrp", on_delete=models.CASCADE)
     fecha_creado = models.DateTimeField(auto_now_add=True)
-    fecha_modificado = models.DateTimeField(auto_now=True)
+    fecha_editado = models.DateTimeField(auto_now=True)
     contenido = models.CharField(max_length=250)
-    id_foro = models.ManyToManyField("foros_descrp")
-    is_edit = models.BooleanField(null=True, blank=True)
-    reportaro = models.IntegerField(null=True, blank=True)
-    likes = models.IntegerField(null=True, blank=True)
+    is_edit = models.BooleanField(default=False)
+    
+class likes(models.Model):
+    id_like = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
+    foro = models.ForeignKey("foro.foros_descrp", on_delete=models.DO_NOTHING)
+    comentario = models.ForeignKey("foro.comentarios", on_delete=models.DO_NOTHING)

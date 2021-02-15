@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block head_contenido %}
+<title>Paxel | Crea tu foro</title>
+{% endblock %}
+
+{% block container %}
+    {% for post in object_list %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <h5 class="card-title mt-0">{{ post.titulo }}</h5>
+                                <cite class="blockquote-footer mt-1">{{ post.creador }} | {{ post.videojuego }}</cite>
+                            </blockquote>
+                            <p class="card-text">{{ post.contenido }}</p>
+                            <small>Creado el {{ post.fecha_creacion }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock  %}

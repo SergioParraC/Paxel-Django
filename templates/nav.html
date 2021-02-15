@@ -11,10 +11,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'foro:index' %}">Inicio</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Mis foros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'foro:createPost' %}">Crear foro</a>
         </li>
       </ul>
             
@@ -30,7 +33,7 @@
             Opciones
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Crear foro</a></li>
+            <li><a class="dropdown-item" href="{% url 'foro:createPost' %}">Crear foro</a></li>
             <li><a class="dropdown-item" href="#">Administrar foros</a></li>
             {% if request.user.is_authenticated %}
               <li><hr class="dropdown-divider"></li>
