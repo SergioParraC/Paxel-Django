@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block head_contenido %}
+<title>Paxel | Crea tu foro</title>
+{% endblock %}
+{% block container %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-6">Desea eliminar el post titulado "{{ foros_descrp.titulo }}"?</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Eliminar" class="btn btn-danger">
+                <input type="button" value="Cancelar" class="btn btn-secondary" href="{% url 'foro:detailPost' foros_descrp.pk %}">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

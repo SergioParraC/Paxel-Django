@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <blockquote class="blockquote">
-                                <h5 class="card-title mt-0">{{ post.titulo }}</h5>
+                                <a href="{% url 'foro:detailPost' post.pk %}"><h5 class="card-title mt-0">{{ post.titulo }}</h5></a>
                                 <cite class="blockquote-footer mt-1">{{ post.creador }} | {{ post.videojuego }}</cite>
                             </blockquote>
                             <p class="card-text">{{ post.contenido }}</p>
