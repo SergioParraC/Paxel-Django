@@ -4,15 +4,44 @@ from django.contrib.auth.models import User
 from foro.models import foros_descrp
 from foro.models import videojuegos
 
-class crearPostForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     #crea un foro
-    titulo = forms.CharField(min_length=5 , max_length=70)
-    resumen = forms.CharField(min_length=30, max_length=500)
-    contenido = forms.CharField()
-    videojuego = forms.ModelChoiceField(queryset=videojuegos.objects.all())
-    
+    titulo = forms.CharField(
+        min_length=5, 
+        max_length=70,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'Pon un titulo',
+                'class':'form-control',
+                'required':True,
+                'autocomplete':"off"
+                }
+            )
+        )
+    contenido = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'placeholder':'Pon el contenido',
+                'class':'form-control',
+                'required':True
+                }
+            )
+        )
+    videojuego = forms.ModelChoiceField(
+        queryset=videojuegos.objects.all(),
+        empty_label="Selecciona un videojuego",
+        widget=forms.Select(
+            attrs={
+                'class':'form-select',
+                'required':True,
+                }
+            )
+        )
+    imagen = forms.FileInput()
+
+
     class Meta:
         model = foros_descrp
-        fields= ['titulo','resumen','contenido','videojuego']
-
-    
+        fields= ['titulo','imagen','videojuego','contenido','creador']
+        exclude = ['creador']
+        

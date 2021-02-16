@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block head_contenido %}
-<title>Paxel | Crea tu foro</title>
+<title>Paxel | Edita tu foro</title>
 {% endblock %}
 {% block container %}
 <div class="container">
     <div class="row">
         <div class="col-12 text-center">
-            <h1 class="display-4">Crea tu foro</h1>
+            <h1 class="display-4">Edita tu foro</h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 text-center">
+        <div class="col-12 col-md-8 offset-md-2 text-left">
             <form method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}

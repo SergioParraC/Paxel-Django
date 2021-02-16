@@ -19,21 +19,21 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('usuarios:act_datos')
+            return redirect('foro:index')
         else:
             return render(request, 'usuarios/login.html',{'error':'Usuario o contraseña erroneos'})
     return render(request,'usuarios/login.html')
 
 def logout_view(request):
     logout(request)
-    return redirect('usuarios:logout')
+    return redirect('usuarios:login')
 
 def crear_usuario(request):
     if request.method == 'POST':
         form = Crear_Usuario_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('usuarios:login')
+            return redirect('foro:login')
     else:
         form = Crear_Usuario_Form()
     return render(
@@ -51,7 +51,7 @@ def act_datos_view(request):
         form = Act_Usuario_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('foro:inicio')
+            return redirect('foro:index')
     else:
         form = Act_Usuario_Form()
     return render(

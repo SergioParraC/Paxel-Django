@@ -1,47 +1,58 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="{% static 'img/logotipo.png' %}" alt="" width="30" height="24" class="d-inline-block align-top">
-      Paxel
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'foro:index' %}">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Mis foros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'foro:createPost' %}">Crear foro</a>
-        </li>
-      </ul>
-            
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Buscar foro" aria-label="Search">
-        <div class="col-5">
-          <button class="btn btn-outline-success" type="submit">Buscar foro</button>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'img/logotipo.png' %}" alt="" width="30" height="24" class="d-inline-block align-top">
+            Paxel
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-0 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'foro:index' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Mis foros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'foro:createPost' %}">Crear foro</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control" type="search" placeholder="Buscar foro" aria-label="Search">
+                <div class="col-5">
+                    <button class="btn btn-outline-success" type="submit">Buscar foro</button>
+                </div>
+              
+            </form>
+            <li class="nav-item dropdown">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger">
+                        {% if request.user.is_authenticated %}
+                            {{ request.user.username }}
+                        {% else %}
+                            Iniciar sesion
+                        {% endif %}
+                    </button>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        {% if request.user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url 'foro:createPost' %}">Crear foro</a></li>
+                            <li><a class="dropdown-item" href="#">Administrar foros</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'usuarios:act_datos' %}">Modificar perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'usuarios:logout' %}">Cerrar sesion</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{% url 'usuarios:login' %}">Iniciar sesion</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+            </li>
         </div>
-        
-      </form>
-      <li class="nav-item dropdown pt-0">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Opciones
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url 'foro:createPost' %}">Crear foro</a></li>
-            <li><a class="dropdown-item" href="#">Administrar foros</a></li>
-            {% if request.user.is_authenticated %}
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Modificar perfil</a></li>
-              <li><a class="dropdown-item" href="{% url 'usuarios:logout' %}">Cerrar sesion</a></li>
-            {% endif %}
-          </ul>
-        </li>
     </div>
-  </div>
 </nav>
