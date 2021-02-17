@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 
 #Formularios
 from foro.forms import PostForm
@@ -14,18 +15,27 @@ class DetailPostView(DetailView):
     model = foros_descrp
     template_name = 'foro/detailPost.html'
 
+    def get(self, request, *args, **kwargs):
+        context = locals()
+        #user = User.objects.get(creador=)
+        print(self.request.foros_descr.pk)
+        context['userCreator'] = user
+        return render(request, self.template_name, context)
+
 class CreatePostView(LoginRequiredMixin,CreateView):
     model = foros_descrp
     template_name = "foro/createPost.html"
     form_class = PostForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user"] = self.request.user
-        context["perfil"] = self.request.user.perfil
-        return context
-    
-    
+    def get_success_url(self):
+        return reverse('foro:index')
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.creador = User.objects.get(username=self.request.user.username)
+        post.save()
+        return HttpResponseRedirect(self.get_success_url())
+
 class ListPostsView(ListView):
     model = foros_descrp
     template_name = 'foro/listPost.html'

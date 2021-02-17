@@ -33,7 +33,7 @@ def crear_usuario(request):
         form = Crear_Usuario_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('foro:login')
+            return redirect('foro:index')
     else:
         form = Crear_Usuario_Form()
     return render(
