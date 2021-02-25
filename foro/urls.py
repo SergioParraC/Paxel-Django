@@ -5,8 +5,8 @@ from foro import views
 urlpatterns = [
     path(
         #Lista los post
-        route = '', 
-        view = views.ListPostsView.as_view(), 
+        route = '',
+        view = views.ListPostsView.as_view(),
         name = 'index'
     ),
     path(
@@ -17,8 +17,8 @@ urlpatterns = [
     ),
     path(
         #Crear un post
-        route = 'foro/crear', 
-        view = views.CreatePostView.as_view(), 
+        route = 'foro/crear',
+        view = views.CreatePostView.as_view(),
         name = 'createPost'
     ),
     path(
@@ -33,6 +33,10 @@ urlpatterns = [
         view = views.DeletePostView.as_view(),
         name = 'deletePost'
     ),
-    
+    path(
+        #Acceso Denegado
+        route = 'foro/acceso-no-permitido',
+        view = views.DenigedAcces.as_view(),
+        name = 'DenigedAcces'
+    ),
 ]
-

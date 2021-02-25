@@ -17,8 +17,12 @@
             </blockquote>
             <p>Videojuego: <a href="#" class="badge bg-light text-dark">{{ foros_descrp.videojuego }}</a></p>
             <p>{{ foros_descrp.contenido }}</p>
-            <a class="btn btn-primary" type="button" href="{% url 'foro:updatePost' foros_descrp.pk %}">Editar</a>
-            <a class="btn btn-danger" type="button" href="{% url 'foro:deletePost' foros_descrp.pk %}">Eliminar</a>
+            {% if isCreador %}
+                <a class="btn btn-primary" type="button" href="{% url 'foro:updatePost' foros_descrp.pk %}">Editar</a>
+                <a class="btn btn-danger" type="button" href="{% url 'foro:deletePost' foros_descrp.pk %}">Eliminar</a>
+            {% endif %}
+
+
         </div>
     </div>
 </div>
